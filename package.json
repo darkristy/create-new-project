@@ -9,10 +9,10 @@
     "start": "node src/cli.js"
   },
   "dependencies": {
-    "@adonisjs/ace": "^5.0.8",
     "cli-color": "^2.0.0",
     "cli-spinners": "^2.4.0",
     "dotenv": "^8.2.0",
+    "inquirer": "^7.3.3",
     "ora": "^5.0.0"
   },
   "devDependencies": {
