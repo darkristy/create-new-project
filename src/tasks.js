@@ -104,7 +104,9 @@ const taskLists = answers => {
     {
       title: 'Install package dependencies with npm',
       enabled: ctx => ctx.yarn === false,
-      task: () => execa('npm', ['install']),
+      task: async () => {
+        await execa('npm', ['install']);
+      },
     },
     {
       title: `Opening Project`,
