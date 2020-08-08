@@ -4,11 +4,11 @@ const execa = require('execa');
 const chalk = require('chalk');
 
 const waitASecond = require('./utils/timeouts');
-const files = require('./utils/files');
+const files = require('./utils/helpers');
 const { repos } = require('./constants');
 
 const {
-  directoryExists,
+  exists,
   getCurrentDirectory,
   createNewDirectory,
   changeToNewDirectory,
@@ -39,7 +39,7 @@ const taskLists = answers => {
       task: async () => {
         await waitASecond();
         createNewDirectory(projectPath).catch(() => {
-          if (directoryExists(projectPath)) {
+          if (exists(projectPath)) {
             console.error(
               chalk.red(
                 `Folder ${projectPath} exists. Delete or use another name.`
