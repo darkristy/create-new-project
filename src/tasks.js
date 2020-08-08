@@ -92,11 +92,19 @@ const taskLists = answers => {
 
   const installLocalDependencies = [
     {
-      title: `Installing Dependencies`,
-      task: async () => {
+      title: `Installing Dependencies with Yarn`,
+      task: async (ctx, task) => {
         await waitASecond();
-        exists() && (await execa('yarn'));
+        await execa('yarn').catch(() => {
+          ctx.yarn = false;
+          task.skip('Yarn not available, install it via `npm install -g yarn`');
+        });
       },
+    },
+    {
+      title: 'Install package dependencies with npm',
+      enabled: ctx => ctx.yarn === false,
+      task: () => execa('npm', ['install']),
     },
     {
       title: `Opening Project`,
