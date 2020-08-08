@@ -1,7 +1,7 @@
 const inquirer = require('inquirer');
+const Listr = require('listr');
 
-const createLocalProject = require('./modules/createLocalProject');
-const installLocalDependencies = require('./modules/installLocalDependencies');
+const taskLists = require('./tasks');
 
 inquirer
   .prompt([
@@ -22,4 +22,7 @@ inquirer
       name: 'typescript',
     },
   ])
-  .then(answers => createLocalProject(answers));
+  .then(answers => {
+    const tasks = new Listr([...taskLists(answers)]);
+    tasks.run();
+  });

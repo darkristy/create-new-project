@@ -5,6 +5,7 @@
 - [x] Ask what type of projects this is
 - [x] Clone a repo based on project type
 - [x] Remove git folder from cloned template
+- [] Create git repo
 - [] Git init
 - [] Add remote to project folder
 - [] git add && git commit && git push master
