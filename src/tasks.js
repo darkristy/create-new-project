@@ -90,9 +90,28 @@ const taskLists = answers => {
     },
   ];
 
-  const installLocalDependencies = [];
+  const installLocalDependencies = [
+    {
+      title: `Installing Dependencies`,
+      task: async () => {
+        await waitASecond();
+        exists() && (await execa('yarn'));
+      },
+    },
+    {
+      title: `Opening Project`,
+      task: async () => {
+        await waitASecond();
+        await execa('code', ['.']);
+      },
+    },
+  ];
 
-  return [...createLocalProject, ...createGitRepository];
+  return [
+    ...createLocalProject,
+    ...createGitRepository,
+    // ...installLocalDependencies,
+  ];
 };
 
 module.exports = taskLists;

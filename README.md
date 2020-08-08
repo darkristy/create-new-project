@@ -9,4 +9,5 @@
 - [] Create git repo
 - [] Add remote to project folder
 - [] git add && git commit && git push master
-- [] Open project in VSCode
+- [x] Install dependencies
+- [x] Open project in VSCode
