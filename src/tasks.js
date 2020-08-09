@@ -2,10 +2,14 @@ const path = require('path');
 
 const execa = require('execa');
 const chalk = require('chalk');
+const { Octokit } = require('@octokit/rest');
 
 const waitASecond = require('./utils/timeouts');
 const files = require('./utils/helpers');
 const { repos } = require('./constants');
+const { createNewRepository } = require('./utils/helpers');
+
+require('dotenv').config();
 
 const {
   exists,
@@ -88,6 +92,45 @@ const taskLists = answers => {
         stdout;
       },
     },
+
+    {
+      title: `Creating remote git repository`,
+      task: async () => {
+        await waitASecond();
+        const octo = new Octokit({
+          auth: process.env.PERSONAL_ACESSS_TOKEN,
+        });
+
+        const repositoryName = `${projectName}`;
+        await createNewRepository(octo, repositoryName);
+      },
+    },
+  ];
+
+  const pushProjectToGitRepository = [
+    {
+      title: `Setting local project to remote repository`,
+      task: async () => {
+        const owner = process.env.USERNAME;
+
+        await waitASecond();
+        await execa('git', [
+          'remote',
+          'add',
+          'origin',
+          `git@github.com:${owner}/${projectName}.git`,
+        ]);
+      },
+    },
+    {
+      title: `Pushing local project to remote repository`,
+      task: async () => {
+        await waitASecond();
+        await execa('git', ['add', '.']);
+        await execa('git', ['commit', '-m', 'Initial Commit']);
+        await execa('git', ['push', '-u', 'origin', 'master']);
+      },
+    },
   ];
 
   const installLocalDependencies = [
@@ -120,7 +163,8 @@ const taskLists = answers => {
   return [
     ...createLocalProject,
     ...createGitRepository,
-    // ...installLocalDependencies,
+    ...pushProjectToGitRepository,
+    ...installLocalDependencies,
   ];
 };
 

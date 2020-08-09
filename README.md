@@ -6,8 +6,8 @@
 - [x] Clone a repo based on project type
 - [x] Remove git folder from cloned template
 - [x] Git init
-- [] Create git repo
-- [] Add remote to project folder
-- [] git add && git commit && git push master
+- [x] Create git repo
+- [x] Add remote to project folder
+- [x] git add && git commit && git push master
 - [x] Install dependencies
 - [x] Open project in VSCode

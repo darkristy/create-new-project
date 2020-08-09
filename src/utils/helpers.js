@@ -5,4 +5,7 @@ module.exports = {
   exists: async filePath => !!fs.existsSync(filePath),
   createNewDirectory: async projectPath => fs.mkdirSync(projectPath),
   changeToNewDirectory: async projectPath => process.chdir(projectPath),
+  createNewRepository: async (octo, name) => {
+    await octo.repos.createForAuthenticatedUser({ name });
+  },
 };
