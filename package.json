@@ -1,11 +1,14 @@
 {
   "name": "@darkristy/create-new-project",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Create a new project CLI",
   "main": "src/cli.js",
   "bin": "src/cli.js",
   "author": "Kahlil Whitfield <darkristy2002@gmail.com>",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "start": "node src/cli.js"
   },
@@ -15,7 +18,8 @@
     "dotenv": "^8.2.0",
     "execa": "^4.0.3",
     "inquirer": "^7.3.3",
-    "listr": "^0.14.3"
+    "listr": "^0.14.3",
+    "yargs": "^15.4.1"
   },
   "devDependencies": {
     "babel-eslint": "^9.0.0",

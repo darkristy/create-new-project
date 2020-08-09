@@ -3,6 +3,7 @@ const path = require('path');
 const execa = require('execa');
 const chalk = require('chalk');
 const { Octokit } = require('@octokit/rest');
+const yargs = require('yargs');
 
 const waitASecond = require('./utils/timeouts');
 const files = require('./utils/helpers');
@@ -36,6 +37,17 @@ const repo = answers => {
 const taskLists = answers => {
   const projectName = answers.projectname;
   const projectPath = path.join(getCurrentDirectory, projectName);
+
+  const { argv } = yargs.options({
+    authToken: {
+      alias: 'auth',
+      description: 'Give the CLI your personal authentication token.',
+    },
+    username: {
+      alias: 'user',
+      description: 'Give the CLI your username.',
+    },
+  });
 
   const createLocalProject = [
     {
@@ -98,7 +110,8 @@ const taskLists = answers => {
       task: async () => {
         await waitASecond();
         const octo = new Octokit({
-          auth: process.env.PERSONAL_ACESSS_TOKEN,
+          // auth: process.env.PERSONAL_ACESSS_TOKEN,
+          auth: argv.authToken,
         });
 
         const repositoryName = `${projectName}`;
@@ -111,7 +124,8 @@ const taskLists = answers => {
     {
       title: `Setting local project to remote repository`,
       task: async () => {
-        const owner = process.env.USERNAME;
+        // const owner = process.env.USERNAME;
+        const owner = argv.username;
 
         await waitASecond();
         await execa('git', [
