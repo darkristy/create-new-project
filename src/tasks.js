@@ -34,20 +34,9 @@ const repo = answers => {
   }
 };
 
-const taskLists = answers => {
+const taskLists = (answers, argv) => {
   const projectName = answers.projectname;
   const projectPath = path.join(getCurrentDirectory, projectName);
-
-  const { argv } = yargs.options({
-    authToken: {
-      alias: 'auth',
-      description: 'Give the CLI your personal authentication token.',
-    },
-    username: {
-      alias: 'user',
-      description: 'Give the CLI your username.',
-    },
-  });
 
   const createLocalProject = [
     {
