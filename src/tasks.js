@@ -32,6 +32,9 @@ const repo = answers => {
   if (answers.framework === 'Gatsby' && answers.typescript === true) {
     return repos.gatsby;
   }
+  if (answers.framework === 'Express.js') {
+    return repos.expressjs;
+  }
 };
 
 const taskLists = (answers, argv) => {

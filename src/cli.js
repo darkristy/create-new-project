@@ -28,9 +28,9 @@ inquirer
     },
     {
       type: 'list',
-      message: 'Which framework you want to use?',
+      message: 'What project are you creating?',
       name: 'framework',
-      choices: ['Next.js', 'Gatsby'],
+      choices: ['Next.js', 'Gatsby', 'Express.js'],
     },
     {
       type: 'confirm',
