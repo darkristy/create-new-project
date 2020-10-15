@@ -7,11 +7,11 @@ const yargs = require('yargs');
 const taskLists = require('./tasks');
 
 const { argv } = yargs.options({
-  username: {
-    alias: 'user',
-    description: 'Give the CLI your username.',
-    demandOption: true,
-  },
+  // username: {
+  //   alias: 'user',
+  //   description: 'Give the CLI your username.',
+  //   demandOption: true,
+  // },
 });
 
 inquirer
