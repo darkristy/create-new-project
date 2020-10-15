@@ -6,6 +6,14 @@ const yargs = require('yargs');
 
 const taskLists = require('./tasks');
 
+const { argv } = yargs.options({
+  username: {
+    alias: 'status',
+    description: 'Give the CLI the visibility status of your project.',
+    demandOption: true,
+  },
+});
+
 inquirer
   .prompt([
     {
@@ -32,6 +40,6 @@ inquirer
     },
   ])
   .then(answers => {
-    const tasks = new Listr([...taskLists(answers)]);
+    const tasks = new Listr([...taskLists(answers, argv)]);
     tasks.run();
   });

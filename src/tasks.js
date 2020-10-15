@@ -44,9 +44,11 @@ const editor = answers => {
   }
 };
 
-const taskLists = answers => {
+const taskLists = (answers, argv) => {
   const projectName = answers.projectname;
   const projectPath = path.join(getCurrentDirectory, projectName);
+
+  const repositoryStatus = `--${argv.status}`;
 
   const createLocalProject = [
     {
@@ -109,7 +111,7 @@ const taskLists = answers => {
       task: async () => {
         await waitASecond();
         const repositoryName = `${projectName}`;
-        await createNewRepository(repositoryName);
+        await createNewRepository(repositoryName, repositoryStatus);
       },
     },
   ];
