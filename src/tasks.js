@@ -2,8 +2,6 @@ const path = require('path');
 
 const execa = require('execa');
 const chalk = require('chalk');
-const { Octokit } = require('@octokit/rest');
-const yargs = require('yargs');
 
 const waitASecond = require('./utils/timeouts');
 const files = require('./utils/helpers');
@@ -37,7 +35,16 @@ const repo = answers => {
   }
 };
 
-const taskLists = (answers, argv) => {
+const editor = answers => {
+  if (answers.editor === 'vim') {
+    return execa('vim');
+  }
+  if (answers.editor === 'vscode') {
+    return execa('code', ['.']);
+  }
+};
+
+const taskLists = answers => {
   const projectName = answers.projectname;
   const projectPath = path.join(getCurrentDirectory, projectName);
 
@@ -101,33 +108,13 @@ const taskLists = (answers, argv) => {
       title: `Creating remote git repository`,
       task: async () => {
         await waitASecond();
-        const octo = new Octokit({
-          // auth: process.env.PERSONAL_ACESSS_TOKEN,
-          auth: argv.authToken,
-        });
-
         const repositoryName = `${projectName}`;
-        await createNewRepository(octo, repositoryName);
+        await createNewRepository(repositoryName);
       },
     },
   ];
 
   const pushProjectToGitRepository = [
-    {
-      title: `Setting local project to remote repository`,
-      task: async () => {
-        // const owner = process.env.USERNAME;
-        const owner = argv.username;
-
-        await waitASecond();
-        await execa('git', [
-          'remote',
-          'add',
-          'origin',
-          `git@github.com:${owner}/${projectName}.git`,
-        ]);
-      },
-    },
     {
       title: `Pushing local project to remote repository`,
       task: async () => {
@@ -161,7 +148,7 @@ const taskLists = (answers, argv) => {
       title: `Opening Project`,
       task: async () => {
         await waitASecond();
-        await execa('code', ['.']);
+        await editor(answers);
       },
     },
   ];

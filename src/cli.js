@@ -7,11 +7,6 @@ const yargs = require('yargs');
 const taskLists = require('./tasks');
 
 const { argv } = yargs.options({
-  authToken: {
-    alias: 'auth',
-    description: 'Give the CLI your personal authentication token.',
-    demandOption: true,
-  },
   username: {
     alias: 'user',
     description: 'Give the CLI your username.',
@@ -36,6 +31,12 @@ inquirer
       type: 'confirm',
       message: 'Do you want to use Typescript?',
       name: 'typescript',
+    },
+    {
+      type: 'list',
+      message: 'What editor are you using?',
+      name: 'editor',
+      choices: ['vscode', 'vim'],
     },
   ])
   .then(answers => {
