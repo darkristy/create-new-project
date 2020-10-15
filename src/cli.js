@@ -7,8 +7,8 @@ const yargs = require('yargs');
 const taskLists = require('./tasks');
 
 const { argv } = yargs.options({
-  username: {
-    alias: 'status',
+  status: {
+    alias: 's',
     description: 'Give the CLI the visibility status of your project.',
     demandOption: true,
   },
