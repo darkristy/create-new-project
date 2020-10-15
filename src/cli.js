@@ -12,6 +12,11 @@ const { argv } = yargs.options({
     description: 'Give the CLI the visibility status of your project.',
     demandOption: true,
   },
+  terminal: {
+    alias: 't',
+    description:
+      'Specify what terminal your using if vim is your main editor, if using alacritty ignore.',
+  },
 });
 
 inquirer

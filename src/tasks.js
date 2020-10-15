@@ -35,9 +35,12 @@ const repo = answers => {
   }
 };
 
-const editor = answers => {
+const editor = (answers, terminal, projectPath) => {
   if (answers.editor === 'vim') {
-    return execa('vim');
+    if (!terminal) {
+      execa('alacritty', ['--working-directory', projectPath]);
+    }
+    execa(terminal, ['$(pwd)']);
   }
   if (answers.editor === 'vscode') {
     return execa('code', ['.']);
@@ -49,6 +52,7 @@ const taskLists = (answers, argv) => {
   const projectPath = path.join(getCurrentDirectory, projectName);
 
   const repositoryStatus = `--${argv.status}`;
+  const { terminal } = argv;
 
   const createLocalProject = [
     {
@@ -150,7 +154,7 @@ const taskLists = (answers, argv) => {
       title: `Opening Project`,
       task: async () => {
         await waitASecond();
-        await editor(answers);
+        await editor(answers, terminal, projectPath);
       },
     },
   ];
