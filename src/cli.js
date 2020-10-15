@@ -32,6 +32,6 @@ inquirer
     },
   ])
   .then(answers => {
-    const tasks = new Listr([...taskLists(answers, argv)]);
+    const tasks = new Listr([...taskLists(answers)]);
     tasks.run();
   });
